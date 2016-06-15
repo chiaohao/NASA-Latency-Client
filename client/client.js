@@ -1,3 +1,6 @@
+process.on('uncaughtException', function (err) {
+  console.error(err)
+})
 var http = require('http')
 var ping = require('net-ping')
 var schedule = require('node-schedule')
