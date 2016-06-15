@@ -40,7 +40,7 @@ reg(dataReg, function(dataReg){
 	})
 })
 
-var j = schedule.scheduleJob('* 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', function(){
+var j = schedule.scheduleJob('52 * * * * *', function(){
 	var data = {
 		"ip_local": null,
 		"ip_remote": null,
@@ -101,7 +101,7 @@ var j = schedule.scheduleJob('* 0,5,10,15,20,25,30,35,40,45,50,55 * * * *', func
 			})
 		})
 	}
-
+	getList(reqGet, data)
 //	getLatency('8.8.8.8', data, function(data){
 //		req.end(JSON.stringify(data), function(){
 //			console.log(data)
