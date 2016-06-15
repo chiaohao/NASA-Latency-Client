@@ -54,11 +54,11 @@ var j = schedule.scheduleJob('52 * * * * *', function(){
 		method: 'POST'
 	})
 
-	var reqGet = new http.ClientRequest({
+	var reqGet = {
 		hostname: hname,
 		port: hport,
 		path: '/list'
-	})
+	}
 
 	var session = ping.createSession()
 
