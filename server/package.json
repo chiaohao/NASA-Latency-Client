@@ -1,0 +1,27 @@
+{
+  "name": "NASA-Monitor",
+  "version": "0.0.1",
+  "description": "",
+  "main": "client.js",
+  "dependencies": {
+    "bluebird": "^3.4.0",
+    "ip": "^1.1.3",
+    "node-schedule": "^1.1.0",
+    "sqlite3": "^3.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chiaohao/NASA-Latency-Client"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/chiaohao/NASA-Latency-Client/issues"
+  },
+  "homepage": "https://github.com/chiaohao/NASA-Latency-Client"
+}
