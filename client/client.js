@@ -68,7 +68,7 @@ var j = schedule.scheduleJob('52 * * * * *', function(){
 	function getLatency(target, data, callback){
 		for(var i=0;i<10;i++){
 			session.pingHost(target, function(error, target, sent, rcvd){
-				data.ip_remote = target.ip
+				data.ip_remote = target
 				var ms = rcvd - sent
 
 				var pingData = {
