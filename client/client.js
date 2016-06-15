@@ -89,7 +89,7 @@ var j = schedule.scheduleJob('52 * * * * *', function(){
 		}
 
 
-		setTimeut(function(){
+		setTimeout(function(){
 			callback(data
 		)}, 10000)
 	}
