@@ -27,7 +27,7 @@ function checkElements(obj, keys) {
 
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS device (mac INTEGER, ip INTEGER, ip_pub INTEGER, active INTEGER, ctime INTEGER)");
-  db.run("CREATE TABLE IF NOT EXISTS report (ip_from INTEGER, ip_to INTEGER, rtt, INTEGER, ctime INTEGER)");
+  db.run("CREATE TABLE IF NOT EXISTS report (ip_from INTEGER, ip_to INTEGER, rtt INTEGER, ctime TEXT)");
 });
 
 const PORT = process.env.PORT || 3000;
@@ -87,15 +87,16 @@ function handleRequest(req, res){
                 console.log(row);
                 return new Promise.all([
                   new Promise(function(resolve, reject) {
-                    db.run('INSERT INTO report `ip_from`, `ip_to`, `rtt`, `ctime` VALUES (?, ?, ?, ?)', ip.toLong(body.ip_local), row.rtt, row.ts, function(err) {
+                    db.run('INSERT INTO report `ip_from`, `ip_to`, `rtt`, `ctime` VALUES (?, ?, ?, ?)', ip.toLong(body.ip_local), ip.toLong(body.ip_remote), row.rtt, row.ts, function(err) {
                       if(!err) {
                         resolve();
                       }
                     });
                   }),
                   new Promise(function(resolve, reject) {
-                    child_process.exec('aws cloudwatch put-metric-data --metric-name Latency --namespace NasaFinal --dimensions From=' + body.ip_local + ',To=' + body.ip_remote + ' --timestamp ' + Math.abs(row.ts/1000) + ' --value ' + row.rtt + ' --unit Milliseconds', function(error, stdout, stderr) {
-                      if(!err) {
+                    var aws_cmd = 'aws cloudwatch put-metric-data --metric-name Latency --namespace NasaFinal --dimensions From=' + body.ip_local + ',To=' + body.ip_remote + ' --timestamp ' + row.ts + ' --value ' + row.rtt + ' --unit Milliseconds';
+                    child_process.exec(aws_cmd, function(error, stdout, stderr) {
+                      if(!error) {
                         resolve();
                       }
                     });
